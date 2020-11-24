@@ -21,6 +21,8 @@
  */
 #pragma once
 
+#include "Printer.h"
+
 /**
  * Configuration.h
  *
@@ -70,7 +72,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(none, default config)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "SWORDFISH" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -127,7 +129,7 @@
 
 // Choose the name from boards.h that matches your setup
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_RAMPS_14_EFB
+  #include "../config/motherboards.h"
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu
@@ -141,10 +143,10 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#define EXTRUDERS 1
+#define EXTRUDERS NUMBERS_OF_EXTRUDERS 
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
-#define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
+#define DEFAULT_NOMINAL_FILAMENT_DIA FILANENT_DIAMETER
 
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
 //#define SINGLENOZZLE
@@ -734,14 +736,39 @@
  * following movement settings. If fewer factors are given than the
  * total number of extruders, the last value applies to the rest.
  */
-//#define DISTINCT_E_FACTORS
-
+#if NUMBERS_OF_EXTRUDERS > 1
+  #define DISTINCT_E_FACTORS
+#endif
 /**
  * Default Axis Steps Per Unit (steps/mm)
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 4000, 500 }
+#if NUMBERS_OF_EXTRUDERS > 1
+  #if NUMBERS_OF_EXTRUDERS > 2
+    #if NUMBERS_OF_EXTRUDERS > 3
+      #if defined(STEPS_MM_EXTRUDER_E1) && defined(STEPS_MM_EXTRUDER_E2) & defined(STEPS_MM_EXTRUDER_E3)
+        #define DEFAULT_AXIS_STEPS_PER_UNIT   { STEPS_MM_AXIS_X, STEPS_MM_AXIS_Y, STEPS_MM_AXIS_Z, STEPS_MM_EXTRUDER_E0, STEPS_MM_EXTRUDER_E1, STEPS_MM_EXTRUDER_E2, STEPS_MM_EXTRUDER_E3 }
+      #else
+        #define DEFAULT_AXIS_STEPS_PER_UNIT   { STEPS_MM_AXIS_X, STEPS_MM_AXIS_Y, STEPS_MM_AXIS_Z, STEPS_MM_EXTRUDER_E0, STEPS_MM_EXTRUDER_E0, STEPS_MM_EXTRUDER_E0, STEPS_MM_EXTRUDER_E0 }
+      #endif
+    #else
+      #if defined(STEPS_MM_EXTRUDER_E1) && defined(STEPS_MM_EXTRUDER_E2)
+        #define DEFAULT_AXIS_STEPS_PER_UNIT   { STEPS_MM_AXIS_X, STEPS_MM_AXIS_Y, STEPS_MM_AXIS_Z, STEPS_MM_EXTRUDER_E0, STEPS_MM_EXTRUDER_E1, STEPS_MM_EXTRUDER_E2 }
+      #else
+        #define DEFAULT_AXIS_STEPS_PER_UNIT   { STEPS_MM_AXIS_X, STEPS_MM_AXIS_Y, STEPS_MM_AXIS_Z, STEPS_MM_EXTRUDER_E0, STEPS_MM_EXTRUDER_E0, STEPS_MM_EXTRUDER_E0 }
+      #endif
+    #endif
+  #else
+    #if defined(STEPS_MM_EXTRUDER_E1)
+      #define DEFAULT_AXIS_STEPS_PER_UNIT   { STEPS_MM_AXIS_X, STEPS_MM_AXIS_Y, STEPS_MM_AXIS_Z, STEPS_MM_EXTRUDER_E0, STEPS_MM_EXTRUDER_E1 }
+    #else
+      #define DEFAULT_AXIS_STEPS_PER_UNIT   { STEPS_MM_AXIS_X, STEPS_MM_AXIS_Y, STEPS_MM_AXIS_Z, STEPS_MM_EXTRUDER_E0 }
+    #endif 
+  #endif
+#else
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { STEPS_MM_AXIS_X, STEPS_MM_AXIS_Y, STEPS_MM_AXIS_Z, STEPS_MM_EXTRUDER_E0 }
+#endif
 
 /**
  * Default Max Feed Rate (mm/s)

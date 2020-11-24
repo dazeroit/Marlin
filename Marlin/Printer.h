@@ -1,0 +1,30 @@
+#pragma once
+#include "../config/printers.h"
+#include "../config/motions.h"
+
+#define PRINTER_NAME            ENDER_3
+
+#define PRINTER_MOTIONS         MOTION_CARTESIAN
+
+#define PRINTER_AXIS_X_DIR      MOTION_FORWARD // MOTION_BACKWARD
+#define PRINTER_AXIS_Y_DIR      MOTION_FORWARD // MOTION_BACKWARD
+#define PRINTER_AXIS_Z_DIR      MOTION_FORWARD // MOTION_BACKWARD
+#define PRINTER_AXIS_E_DIR      MOTION_FORWARD // MOTION_BACKWARD
+
+#define NUMBERS_OF_AXES_X       1
+#define NUMBERS_OF_AXES_Y       1
+#define NUMBERS_OF_AXES_Z       1
+
+#define STEPS_MM_AXIS_X         80
+#define STEPS_MM_AXIS_Y         80
+#define STEPS_MM_AXIS_Z         400
+
+#define HOTEND_TYPE             HOTEND_CREALITY_MK8
+#define EXTRUDER_TYPE           BOWDEN_EXTRUDER // DIRECT_DRIVE_EXTRUDER - BOWDEN_EXTRUDER - DUAL_DRIVE_EXTRUDER
+#define EXTRUDER_RATIO          RATIO_1_1
+#define FILANENT_DIAMETER       1.75
+#define NUMBERS_OF_EXTRUDERS    1
+#define STEPS_MM_EXTRUDER_E0    93
+
+
+     
