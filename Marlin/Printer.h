@@ -3,6 +3,7 @@
 #include "../config/motions.h"
 #include "../config/hotends.h"
 #include "../config/extruders.h"
+#include "../config/Printer_def.h"
 
 #define PRINTER_NAME            ENDER_3
 
