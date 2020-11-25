@@ -15,3 +15,6 @@
 
 #define MOTION_FORWARD          true
 #define MOTION_BACKWARD         false
+
+//MACRO DEFINITIONS
+#define IS_MOTION(M)  M==PRINTER_KINEMATIC

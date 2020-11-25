@@ -1,13 +1,18 @@
 #pragma once
 
-#define ENDER_3                 1000
-#define ENDER_3_PRO             1001
-#define ENDER_3_V4              1002
-#define ENDER_3_BTT_SKR_V1_3    1010
-#define ENDER_3_BTT_SKR_V1_4    1011
-#define ENDER_3_BTT_SKR_V1_4T   1020
-#define ENDER_3_MKS_ROBIN_E3    1030
-#define ENDER_3_MKS_ROBIN_E3D   1040
+#define ENDER_3                         1000
+#define ENDER_3_PRO                     1001
+#define ENDER_3_V2                      1002
+#define ENDER_3_BOARD_V422              1003
+#define ENDER_3_BOARD_V427              1004
+#define ENDER_3_BTT_SKR_V1_3            1010
+#define ENDER_3_BTT_SKR_V1_4            1011
+#define ENDER_3_BTT_SKR_V1_4T           1020
+#define ENDER_3_BTT_SKR_MINI_E3_V1      1030
+#define ENDER_3_BTT_SKR_MINI_E3_V1_2    1031
+#define ENDER_3_BTT_SKR_MINI_E3_V2      1032
+#define ENDER_3_MKS_ROBIN_E3            1040
+#define ENDER_3_MKS_ROBIN_E3D           1041
 
 
 

@@ -22,6 +22,13 @@
 #pragma once
 
 #include "Printer.h"
+#include "../config/preconfig/extruder.h"
+/*#if IS_EXTRUDER(BOWDEN_EXTRUDER)
+  #include "../config/extruders/bowden.h"
+#endif*/
+#if IS_HOTEND(HOTEND_GENERIC)
+  #include "../config/hotends/generic.h"
+#endif
 
 /**
  * Configuration.h
@@ -146,10 +153,15 @@
 #define EXTRUDERS NUMBERS_OF_EXTRUDERS 
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
-#define DEFAULT_NOMINAL_FILAMENT_DIA FILANENT_DIAMETER
-
+#if defined(FILAMENT_DIAMETER_OVERRIDE)
+  #define DEFAULT_NOMINAL_FILAMENT_DIA FILAMENT_DIAMETER_OVERRIDE
+#else
+  #define DEFAULT_NOMINAL_FILAMENT_DIA FILAMENT_DIAMETER
+#endif
 // For Cyclops or any "multi-extruder" that shares a single nozzle.
-//#define SINGLENOZZLE
+#if HOTEND_MULTIPLE_NOZZLE
+  #define SINGLENOZZLE
+#endif
 
 // Save and restore temperature and fan speed on tool-change.
 // Set standby for the unselected tool with M104/106/109 T...
@@ -417,14 +429,29 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 1
-#define TEMP_SENSOR_1 0
-#define TEMP_SENSOR_2 0
-#define TEMP_SENSOR_3 0
-#define TEMP_SENSOR_4 0
-#define TEMP_SENSOR_5 0
-#define TEMP_SENSOR_6 0
-#define TEMP_SENSOR_7 0
+#define TEMP_SENSOR_0 THERMISTOR_TYPE_T0
+
+#if defined(THERMISTOR_TYPE_T1)
+  #define TEMP_SENSOR_1 THERMISTOR_TYPE_T1
+#endif
+#if defined(THERMISTOR_TYPE_T2)
+  #define TEMP_SENSOR_2 THERMISTOR_TYPE_T2
+#endif
+#if defined(THERMISTOR_TYPE_T3)
+  #define TEMP_SENSOR_3 THERMISTOR_TYPE_T3
+#endif
+#if defined(THERMISTOR_TYPE_T4)
+  #define TEMP_SENSOR_4 THERMISTOR_TYPE_T4
+#endif
+#if defined(THERMISTOR_TYPE_T5)
+  #define TEMP_SENSOR_5 THERMISTOR_TYPE_T5
+#endif
+#if defined(THERMISTOR_TYPE_T6)
+  #define TEMP_SENSOR_6 THERMISTOR_TYPE_T6
+#endif
+#if defined(THERMISTOR_TYPE_T7)
+  #define TEMP_SENSOR_7 THERMISTOR_TYPE_T7
+#endif
 #define TEMP_SENSOR_BED 0
 #define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
@@ -441,12 +468,15 @@
 
 // Use temp sensor 1 as a redundant sensor with sensor 0. If the readings
 // from the two sensors differ too much the print will be aborted.
-//#define TEMP_SENSOR_1_AS_REDUNDANT
-#define MAX_REDUNDANT_TEMP_SENSOR_DIFF 10
+#if HAS_REDUNDANT_THERMISTOR
+  #define TEMP_SENSOR_1_AS_REDUNDANT
+#endif
 
-#define TEMP_RESIDENCY_TIME     10  // (seconds) Time to wait for hotend to "settle" in M109
-#define TEMP_WINDOW              1  // (°C) Temperature proximity for the "temperature reached" timer
-#define TEMP_HYSTERESIS          3  // (°C) Temperature proximity considered "close enough" to the target
+#define MAX_REDUNDANT_TEMP_SENSOR_DIFF REDUNDANT_MAX_TEMP_DIFF
+
+#define TEMP_RESIDENCY_TIME      TEMP_TUNING_PERMANENCE_SECONDS  // (seconds) Time to wait for hotend to "settle" in M109
+#define TEMP_WINDOW              TEMP_TUNING_PROXIMITY_GRADES  // (°C) Temperature proximity for the "temperature reached" timer
+#define TEMP_HYSTERESIS          TEMP_TUNING_HYSTERESIS_GRADES  // (°C) Temperature proximity considered "close enough" to the target
 
 #define TEMP_BED_RESIDENCY_TIME 10  // (seconds) Time to wait for bed to "settle" in M190
 #define TEMP_BED_WINDOW          1  // (°C) Temperature proximity for the "temperature reached" timer
@@ -454,27 +484,57 @@
 
 // Below this temperature the heater will be switched off
 // because it probably indicates a broken thermistor wire.
-#define HEATER_0_MINTEMP   5
-#define HEATER_1_MINTEMP   5
-#define HEATER_2_MINTEMP   5
-#define HEATER_3_MINTEMP   5
-#define HEATER_4_MINTEMP   5
-#define HEATER_5_MINTEMP   5
-#define HEATER_6_MINTEMP   5
-#define HEATER_7_MINTEMP   5
+#define HEATER_0_MINTEMP   TEMP_TUNING_T0_MINTEMP
+#if defined(TEMP_TUNING_T1_MINTEMP)
+  #define HEATER_1_MINTEMP   TEMP_TUNING_T1_MINTEMP
+#endif
+#if defined(TEMP_TUNING_T2_MINTEMP)
+  #define HEATER_2_MINTEMP   TEMP_TUNING_T2_MINTEMP
+#endif
+#if defined(TEMP_TUNING_T3_MINTEMP)
+  #define HEATER_3_MINTEMP   TEMP_TUNING_T3_MINTEMP
+#endif
+#if defined(TEMP_TUNING_T4_MINTEMP)
+  #define HEATER_4_MINTEMP   TEMP_TUNING_T4_MINTEMP
+#endif
+#if defined(TEMP_TUNING_T5_MINTEMP)
+  #define HEATER_5_MINTEMP   TEMP_TUNING_T5_MINTEMP
+#endif
+#if defined(TEMP_TUNING_T6_MINTEMP)
+  #define HEATER_6_MINTEMP   TEMP_TUNING_T6_MINTEMP
+#endif
+#if defined(TEMP_TUNING_T7_MINTEMP)
+  #define HEATER_7_MINTEMP   TEMP_TUNING_T7_MINTEMP
+#endif
+
 #define BED_MINTEMP        5
 
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 275
-#define HEATER_1_MAXTEMP 275
-#define HEATER_2_MAXTEMP 275
-#define HEATER_3_MAXTEMP 275
-#define HEATER_4_MAXTEMP 275
-#define HEATER_5_MAXTEMP 275
-#define HEATER_6_MAXTEMP 275
-#define HEATER_7_MAXTEMP 275
+#define HEATER_0_MAXTEMP TEMP_TUNING_T0_MAXTEMP
+#if defined(TEMP_TUNING_T1_MAXTEMP)
+  #define HEATER_1_MAXTEMP TEMP_TUNING_T1_MAXTEMP
+#endif
+#if defined(TEMP_TUNING_T2_MAXTEMP)
+  #define HEATER_2_MAXTEMP TEMP_TUNING_T2_MAXTEMP
+#endif
+#if defined(TEMP_TUNING_T3_MAXTEMP)
+  #define HEATER_3_MAXTEMP TEMP_TUNING_T3_MAXTEMP
+#endif
+#if defined(TEMP_TUNING_T4_MAXTEMP)
+  #define HEATER_4_MAXTEMP TEMP_TUNING_T4_MAXTEMP
+#endif
+#if defined(TEMP_TUNING_T5_MAXTEMP)
+  #define HEATER_5_MAXTEMP TEMP_TUNING_T5_MAXTEMP
+#endif
+#if defined(TEMP_TUNING_T6_MAXTEMP)
+  #define HEATER_6_MAXTEMP TEMP_TUNING_T6_MAXTEMP
+#endif
+#if defined(TEMP_TUNING_T7_MAXTEMP)
+  #define HEATER_7_MAXTEMP TEMP_TUNING_T7_MAXTEMP
+#endif
+
 #define BED_MAXTEMP      150
 
 //===========================================================================
@@ -483,27 +543,34 @@
 // PID Tuning Guide here: https://reprap.org/wiki/PID_Tuning
 
 // Comment the following line to disable PID and enable bang-bang.
-#define PIDTEMP
+#if ENABLED(PID_TUNING)
+  #define PIDTEMP
+#endif
 #define BANG_MAX 255     // Limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX BANG_MAX // Limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #define PID_K1 0.95      // Smoothing factor within any PID loop
 
 #if ENABLED(PIDTEMP)
-  //#define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
-  //#define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
-  //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
+  #if ENABLED(PID_MENU)
+    #define PID_EDIT_MENU         // Add PID editing to the "Advanced Settings" menu. (~700 bytes of PROGMEM)
+    #define PID_AUTOTUNE_MENU     // Add PID auto-tuning to the "Advanced Settings" menu. (~250 bytes of PROGMEM)
+  #endif
+
+  #if NUMBERS_OF_EXTRUDERS > 1 && HOTEND_MULTIPLE_NOZZLE
+    #define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
                                   // Set/get with gcode: M301 E[extruder number, 0-2]
+  #endif
 
   #if ENABLED(PID_PARAMS_PER_HOTEND)
     // Specify between 1 and HOTENDS values per array.
     // If fewer than EXTRUDER values are provided, the last element will be repeated.
-    #define DEFAULT_Kp_LIST {  22.20,  22.20 }
-    #define DEFAULT_Ki_LIST {   1.08,   1.08 }
-    #define DEFAULT_Kd_LIST { 114.00, 114.00 }
+    #define DEFAULT_Kp_LIST PID_KP_LIST
+    #define DEFAULT_Ki_LIST PID_KI_LIST
+    #define DEFAULT_Kd_LIST PID_KD_LIST
   #else
-    #define DEFAULT_Kp  22.20
-    #define DEFAULT_Ki   1.08
-    #define DEFAULT_Kd 114.00
+    #define DEFAULT_Kp  PID_KP
+    #define DEFAULT_Ki  PID_KI
+    #define DEFAULT_Kd  PID_KD
   #endif
 #endif // PIDTEMP
 
@@ -566,15 +633,21 @@
  *
  * *** IT IS HIGHLY RECOMMENDED TO LEAVE THIS OPTION ENABLED! ***
  */
-#define PREVENT_COLD_EXTRUSION
-#define EXTRUDE_MINTEMP 170
+#if DISABLED(COLD_EXTRUSION)
+  #define PREVENT_COLD_EXTRUSION
+#endif
+#define EXTRUDE_MINTEMP TEMP_TUNING_MINTEMP_EXTRUSION
 
 /**
  * Prevent a single extrusion longer than EXTRUDE_MAXLENGTH.
  * Note: For Bowden Extruders make this large enough to allow load/unload.
  */
 #define PREVENT_LENGTHY_EXTRUDE
-#define EXTRUDE_MAXLENGTH 200
+#if defined(MAXLENGTH_EXTRUSION_OVERRIDE)
+  #define EXTRUDE_MAXLENGTH MAXLENGTH_EXTRUSION_OVERRIDE
+#else
+  #define EXTRUDE_MAXLENGTH MAXLENGTH_EXTRUSION
+#endif
 
 //===========================================================================
 //======================== Thermal Runaway Protection =======================
@@ -593,9 +666,13 @@
  * details can be tuned in Configuration_adv.h
  */
 
-#define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
-#define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
-#define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
+#if ENABLED(THERMAL_RUNAWAY)
+  #define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
+  #define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
+  #if ENABLED(HAS_THERMAL_CHAMBER)
+    #define THERMAL_PROTECTION_CHAMBER // Enable thermal protection for the heated chamber
+  #endif
+#endif
 
 //===========================================================================
 //============================= Mechanical Settings =========================
@@ -605,13 +682,22 @@
 
 // Enable one of the options below for CoreXY, CoreXZ, or CoreYZ kinematics,
 // either in the usual order or reversed
-//#define COREXY
-//#define COREXZ
-//#define COREYZ
-//#define COREYX
-//#define COREZX
-//#define COREZY
-//#define MARKFORGED_XY  // MarkForged. See https://reprap.org/forum/read.php?152,504042
+
+#if IS_MOTION(MOTION_COREXY)
+  #define COREXY
+#elif IS_MOTION(MOTION_COREXZ)
+  #define COREXZ
+#elif IS_MOTION(MOTION_COREYZ)
+  #define COREYZ
+#elif IS_MOTION(MOTION_COREYX)
+  #define COREYX
+#elif IS_MOTION(MOTION_COREZX)
+  #define COREZX
+#elif IS_MOTION(MOTION_COREZY)
+  #define COREZY
+#elif IS_MOTION(MOTION_MARKFORGED_XY)
+  #define MARKFORGED_XY  // MarkForged. See https://reprap.org/forum/read.php?152,504042
+#endif
 
 //===========================================================================
 //============================== Endstop Settings ===========================
@@ -622,12 +708,24 @@
 // Specify here all the endstop connectors that are connected to any endstop or probe.
 // Almost all printers will be using one per axis. Probes will use one or more of the
 // extra connectors. Leave undefined any used for non-endstop and non-probe purposes.
-#define USE_XMIN_PLUG
-#define USE_YMIN_PLUG
-#define USE_ZMIN_PLUG
-//#define USE_XMAX_PLUG
-//#define USE_YMAX_PLUG
-//#define USE_ZMAX_PLUG
+#if ENABLED(ENDSTOP_X_MIN)
+  #define USE_XMIN_PLUG
+#endif
+#if ENABLED(ENDSTOP_Y_MIN)
+  #define USE_YMIN_PLUG
+#endif
+#if ENABLED(ENDSTOP_Z_MIN)
+  #define USE_ZMIN_PLUG
+#endif
+#if ENABLED(ENDSTOP_X_MAX)
+  #define USE_XMAX_PLUG
+#endif
+#if ENABLED(ENDSTOP_Y_MAX)
+  #define USE_YMAX_PLUG
+#endif
+#if ENABLED(ENDSTOP_Z_MAX)
+  #define USE_ZMAX_PLUG
+#endif
 
 // Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
@@ -656,13 +754,13 @@
 #endif
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
-#define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
+#define X_MIN_ENDSTOP_INVERTING ENDSTOP_X_MIN_INVERTING // Set to true to invert the logic of the endstop.
+#define Y_MIN_ENDSTOP_INVERTING ENDSTOP_Y_MIN_INVERTING // Set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING ENDSTOP_Z_MIN_INVERTING // Set to true to invert the logic of the endstop.
+#define X_MAX_ENDSTOP_INVERTING ENDSTOP_X_MAX_INVERTING // Set to true to invert the logic of the endstop.
+#define Y_MAX_ENDSTOP_INVERTING ENDSTOP_Y_MAX_INVERTING // Set to true to invert the logic of the endstop.
+#define Z_MAX_ENDSTOP_INVERTING ENDSTOP_Z_MAX_INVERTING // Set to true to invert the logic of the endstop.
+#define Z_MIN_PROBE_ENDSTOP_INVERTING ENDSTOP_PROBE_ON_Z_INVERTING // Set to true to invert the logic of the probe.
 
 /**
  * Stepper Drivers
@@ -744,6 +842,11 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
+
+#if !defined(STEPS_MM_EXTRUDER_E0) && defined(STEPS_MM_EXTRUDER)
+  #define STEPS_MM_EXTRUDER_E0 STEPS_MM_EXTRUDER
+#endif
+
 #if NUMBERS_OF_EXTRUDERS > 1
   #if NUMBERS_OF_EXTRUDERS > 2
     #if NUMBERS_OF_EXTRUDERS > 3
@@ -1113,14 +1216,18 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR false
-#define INVERT_Y_DIR true
-#define INVERT_Z_DIR false
+#define INVERT_X_DIR !PRINTER_AXIS_X_DIR
+#define INVERT_Y_DIR !PRINTER_AXIS_Y_DIR
+#define INVERT_Z_DIR !PRINTER_AXIS_Z_DIR
 
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR false
+#ifndef REVERSE_EXTRUDER_ROTATION
+  #define REVERSE_EXTRUDER_ROTATION false
+#endif
+
+#define INVERT_E0_DIR !PRINTER_AXIS_E0_DIR | REVERSE_EXTRUDER_ROTATION
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false
