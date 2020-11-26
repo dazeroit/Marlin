@@ -16,16 +16,19 @@
 /***********************************************************************/
 #pragma once
 #include "../config/macros.h"
-#include "../config/printers_definitions.h"
-#include "../config/extruders_definitions.h"
 /***********************************************************************/
-
-
-
-#define PRINTER_MACHINE     PRINTER_ENDER_3
-
-
-
+#define SWORDFISH_VERSION   010000
 /***********************************************************************/
-#include LOAD_CONFIGURATION(PRINTER_MACHINE)
+//                 ┌─────────────────────────────────┐
+//                 │ Your configuration start HERE ! │
+//                 └─────────────────────────────────┘
+/*▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼*/
+
+#define PRINTER_MACHINE     generic
+#define EXTRUDER_NUMBERS    2
+//#define EXTRUDER_MIXING     true
+
+/*▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲*/
+/***********************************************************************/
+#include LOAD_PRINTER(PRINTER_MACHINE)
 /***********************************************************************/

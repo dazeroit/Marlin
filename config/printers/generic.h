@@ -49,15 +49,33 @@
     #define PRINTER_CUSTOM_STATUS_SCREEN false
 #endif
 
+//$PSU
+#ifndef PRINTER_PSU
+    #define PRINTER_PSU false
+#endif 
+
 //$EXTRUDER
 #ifndef PRINTER_EXTRUDER
-    #define PRINTER_EXTRUDER EXTRUDER_GENERIC
+    #define PRINTER_EXTRUDER generic
+#endif
+
+//$HOTEND
+
+#ifndef PRINTER_HOTEND
+    #define PRINTER_HOTEND generic
 #endif
 
 
-
-
-
 /***********************************************************************/
-#include LOAD_CONFIGURATION(PRINTER_EXTRUDER)
+#ifdef PRINTER_EXTRUDER
+    #include LOAD_CONFIG(../extruders/PRINTER_EXTRUDER)
+#endif
+
+#ifdef PRINTER_HOTEND
+    #include LOAD_CONFIG(../hotends/PRINTER_HOTEND)
+#endif
+
+#if __has_include(STRINGIFY(../psu/PRINTER_PSU.h))
+    #include LOAD_CONFIG(../psu/PRINTER_PSU)
+#endif
 /***********************************************************************/

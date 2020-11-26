@@ -38,7 +38,6 @@
 #endif
 
 /***********************************************************************/
-
 // ┌──────────────────┐
 // │ @section machine │
 // ├──────────────────┤
@@ -67,8 +66,28 @@
     #define MACHINE_UUID PRINTER_MACHINE_UUID
 #endif
 
-/***********************************************************************/
+#if ENABLED(PSU_CONTROL)
+    #if ENABLED(PSU_AUTO_POWER_CONTROL)
+        #define AUTO_POWER_CONTROL
+        #if ENABLED(PSU_AUTO_POWER_FANS)
+            #define AUTO_POWER_FANS 
+        #endif 
+        #if ENABLED(PSU_AUTO_POWER_E_FANS)
+            #define AUTO_POWER_E_FANS
+        #endif
+        #if ENABLED(PSU_AUTO_POWER_CONTROLLERFAN)
+            #define AUTO_POWER_CONTROLLERFAN
+        #endif
+        #if ENABLED(PSU_AUTO_POWER_CHAMBER_FAN)
+            #define AUTO_POWER_CHAMBER_FAN
+        #endif
+        #define AUTO_POWER_E_TEMP  PSU_AUTO_POWER_E_TEMP
+        #define AUTO_POWER_CHAMBER_TEMP PSU_AUTO_POWER_CHAMBER_TEMP
+        #define POWER_TIMEOUT PSU_POWER_TIMEOUT
+    #endif
+#endif
 
+/***********************************************************************/
 // ┌───────────────────┐
 // │ @section extruder │
 // ├───────────────────┤
@@ -131,4 +150,67 @@
     #endif
 #endif
 
+#if ENABLED(EXTRUDER_SWITCHING_TOOLHEAD)
+    #define SWITCHING_TOOLHEAD
+    #define SWITCHING_NOZZLE_SERVO_NR EXTRUDER_SWITCHING_TOOLHEAD_SERVO_NR
+    #define SWITCHING_TOOLHEAD_SERVO_ANGLES EXTRUDER_SWITCHING_TOOLHEAD_SERVO_ANGLES
+#endif
 
+#if ENABLED(EXTRUDER_SWITCHING_TOOLHEAD_MAGNETIC)
+    #define MAGNETIC_SWITCHING_TOOLHEAD
+    #define SWITCHING_TOOLHEAD_Y_RELEASE EXTRUDER_SWITCHING_TOOLHEAD_Y_RELEASE
+    #define SWITCHING_TOOLHEAD_X_SECURITY EXTRUDER_SWITCHING_TOOLHEAD_X_SECURITY
+    #if ENABLED(EXTRUDER_SWITCHING_TOOLHEAD_PRIME_BEFORE_REMOVE)
+        #define PRIME_BEFORE_REMOVE
+        #define SWITCHING_TOOLHEAD_PRIME_MM EXTRUDER_SWITCHING_TOOLHEAD_PRIME_MM
+        #define SWITCHING_TOOLHEAD_RETRACT_MM EXTRUDER_SWITCHING_TOOLHEAD_RETRACT_MM
+        #define SWITCHING_TOOLHEAD_PRIME_FEEDRATE EXTRUDER_SWITCHING_TOOLHEAD_PRIME_FEEDRATE
+        #define SWITCHING_TOOLHEAD_RETRACT_FEEDRATE EXTRUDER_SWITCHING_TOOLHEAD_RETRACT_FEEDRATE
+    #endif
+#endif
+
+#if ENABLED(EXTRUDER_SWITCHING_TOOLHEAD_ELECTROMAGNETIC)
+    #define ELECTROMAGNETIC_SWITCHING_TOOLHEAD
+    #define SWITCHING_TOOLHEAD_Z_HOP EXTRUDER_SWITCHING_TOOLHEAD_Z_HOP
+#endif
+
+#if ANY(SWITCHING_TOOLHEAD,MAGNETIC_SWITCHING_TOOLHEAD,ELECTROMAGNETIC_SWITCHING_TOOLHEAD)
+    #define SWITCHING_TOOLHEAD_Y_POS EXTRUDER_SWITCHING_TOOLHEAD_Y_POS
+    #define SWITCHING_TOOLHEAD_Y_SECURITY EXTRUDER_SWITCHING_TOOLHEAD_Y_SECURITY
+    #define SWITCHING_TOOLHEAD_Y_CLEAR EXTRUDER_SWITCHING_TOOLHEAD_Y_CLEAR
+    #define SWITCHING_TOOLHEAD_X_POS EXTRUDER_SWITCHING_TOOLHEAD_X_POS
+#endif
+
+#if ENABLED(EXTRUDER_MIXING)
+    #define MIXING_EXTRUDER
+    #define MIXING_STEPPERS EXTRUDER_MIXING_STEPPERS
+    #define MIXING_VIRTUAL_TOOLS EXTRUDER_MIXING_VIRTUAL_TOOLS
+    #if ENABLED(EXTRUDER_MIXING_DIRECT_IN_G1)
+        #define DIRECT_MIXING_IN_G1
+    #endif
+    #if ENABLED(EXTRUDER_MIXING_GRADIENT)
+        #define GRADIENT_MIX
+        #if ENABLED(EXTRUDER_MIXING_GRADIENT_VTOOL)
+            #define GRADIENT_VTOOL
+        #endif
+    #endif
+#endif
+
+#ifdef EXTRUDER_HOTEND_OFFSET_X
+    #define HOTEND_OFFSET_X EXTRUDER_HOTEND_OFFSET_X
+#endif
+
+#ifdef EXTRUDER_HOTEND_OFFSET_Y
+    #define HOTEND_OFFSET_Y EXTRUDER_HOTEND_OFFSET_Y
+#endif
+
+#ifdef EXTRUDER_HOTEND_OFFSET_Z
+    #define HOTEND_OFFSET_Z EXTRUDER_HOTEND_OFFSET_Z
+#endif
+
+/***********************************************************************/
+// ┌──────────────────────┐
+// │ @section temperature │
+// ├──────────────────────┤
+// │                      │
+// └──────────────────────┘
