@@ -136,6 +136,62 @@
     #define HOTEND_SENSOR_7_MAXTEMP 275
 #endif
 
+#ifndef HOTEND_PID
+    #define HOTEND_PID true
+#endif
+
+#ifndef HOTEND_BANG_MAX
+    #define HOTEND_BANG_MAX 255
+#endif
+
+#ifndef HOTEND_PID_MAX
+    #define HOTEND_PID_MAX HOTEND_BANG_MAX
+#endif
+
+#ifndef HOTEND_PID_K1
+    #define HOTEND_PID_K1 0.95
+#endif
+
+#ifndef HOTEND_PID_EDIT_MENU
+    #define HOTEND_PID_EDIT_MENU false
+#endif
+
+#ifndef HOTEND_PID_AUTOTUNE_MENU
+    #define HOTEND_PID_AUTOTUNE_MENU false
+#endif
+
+#ifndef HOTEND_PID_PARAMS_PER_HOTEND
+    #define HOTEND_PID_PARAMS_PER_HOTEND false
+#endif
+
+#ifndef HOTEND_PID_KP_LIST
+    #define HOTEND_PID_KP_LIST { 22.20, 22.20 }
+#endif
+
+#ifndef HOTEND_PID_KI_LIST
+    #define HOTEND_PID_KI_LIST { 1.08, 1.08}
+#endif
+
+#ifndef HOTEND_PID_KD_LIST
+    #define HOTEND_PID_KD_LIST { 114.00, 114.00}
+#endif
+
+#ifndef HOTEND_PID_KP
+    #define HOTEND_PID_KP 22.20
+#endif
+
+#ifndef HOTEND_PID_KI
+    #define HOTEND_PID_KI 1.08
+#endif
+
+#ifndef HOTEND_PID_KD
+    #define HOTEND_PID_KD 114.00
+#endif
+
+#ifndef HOTEND_THERMAL_RUNAWAY
+    #define HOTEND_THERMAL_RUNAWAY true
+#endif
+
 /***********************************************************************/
 #if __has_include(STRINGIFY(../thermistors/HOTEND_SENSOR_0.h))
     #include LOAD_CONFIG(../thermistors/HOTEND_SENSOR_0)

@@ -204,6 +204,21 @@
     #define EXTRUDER_HOTEND_OFFSET_Z { 0.0, 0.00 }
 #endif
 
+#ifndef EXTRUDER_PREVENT_COLD_EXTRUSION
+    #define EXTRUDER_PREVENT_COLD_EXTRUSION true
+#endif
+
+#ifndef EXTRUDER_MINTEMP
+    #define EXTRUDER_MINTEMP 170
+#endif
+
+#ifndef EXTRUDER_PREVENT_LENGTHY_EXTRUDE
+    #define EXTRUDER_PREVENT_LENGTHY_EXTRUDE true
+#endif
+
+#ifndef EXTRUDER_MAXLENGTH
+    #define EXTRUDER_MAXLENGTH 200
+#endif
 /***********************************************************************/
 // ┌──────────────────┐
 // │ pre-sanity check │

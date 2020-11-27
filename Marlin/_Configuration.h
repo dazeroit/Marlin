@@ -20,7 +20,6 @@
  *
  */
 #pragma once
-#include "Printer.h"
 
 /**
  * Configuration.h
