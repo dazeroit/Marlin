@@ -219,6 +219,11 @@
 #ifndef EXTRUDER_MAXLENGTH
     #define EXTRUDER_MAXLENGTH 200
 #endif
+
+#ifndef EXTRUDER_DISABLE_INACTIVE
+    #define EXTRUDER_DISABLE_INACTIVE true
+#endif
+
 /***********************************************************************/
 // ┌──────────────────┐
 // │ pre-sanity check │

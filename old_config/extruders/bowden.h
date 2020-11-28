@@ -1,5 +1,0 @@
-#pragma once
-
-#define BOWDEN_TUBE_LENGTH      450
-#define MAXLENGTH_EXTRUSION     BOWDEN_TUBE_LENGTH
-#define FILAMENT_DIAMETER       1.75

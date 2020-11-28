@@ -1,7 +1,0 @@
-#pragma once
-
-#if IS_PRINTER_ANY(ENDER_3,ENDER_3_PRO)
-    #define MOTHERBOARD BOARD_MELZI_CREALITY 
-  #else
-    #define MOTHERBOARD BOARD_RAMPS_14_EFB
-#endif

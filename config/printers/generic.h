@@ -110,8 +110,84 @@
 #ifndef PRINTER_DETECT_BROKEN_ENDSTOP
     #define PRINTER_DETECT_BROKEN_ENDSTOP false
 #endif
-/***********************************************************************/
 
+#ifndef PRINTER_PROBE
+    #define PRINTER_PROBE ../probe
+#endif
+
+#ifndef PRINTER_FILAMENT_RUNOUT
+    #define PRINTER_FILAMENT_RUNOUT false
+#endif
+
+#ifndef PRINTER_FILAMENT_RUNOUT_ENABLED_DEFAULT
+    #define PRINTER_FILAMENT_RUNOUT_ENABLED_DEFAULT true
+#endif
+
+#ifndef PRINTER_FILAMENT_RUNOUT_NUMBERS
+    #define PRINTER_FILAMENT_RUNOUT_NUMBERS 1
+#endif
+
+#ifndef PRINTER_FILAMENT_RUNOUT_STATE
+    #define PRINTER_FILAMENT_RUNOUT_STATE LOW
+#endif
+
+#ifndef PRINTER_FILAMENT_RUNOUT_PULLUP
+    #define PRINTER_FILAMENT_RUNOUT_PULLUP true
+#endif
+
+#ifndef PRINTER_FILAMENT_RUNOUT_PULLDOWN
+    #define PRINTER_FILAMENT_RUNOUT_PULLDOWN false
+#endif
+
+#ifndef PRINTER_FILAMENT_RUNOUT_SCRIPT
+    #define PRINTER_FILAMENT_RUNOUT_SCRIPT "M600"
+#endif
+
+#ifndef PRINTER_FILAMENT_RUNOUT_DISTANCE_MM
+    #define PRINTER_FILAMENT_RUNOUT_DISTANCE_MM 0 //25
+#endif
+
+#ifndef PRINTER_FILAMENT_RUNOUT_MOTION_SENSOR
+    #define PRINTER_FILAMENT_RUNOUT_MOTION_SENSOR false
+#endif
+
+#ifndef PRINTER_LEVELING
+    #define PRINTER_LEVELING none
+#endif
+
+#ifndef PRINTER_PREHEAT_1_LABEL
+    #define PRINTER_PREHEAT_1_LABEL "PLA"
+#endif
+
+#ifndef PRINTER_PREHEAT_1_TEMP_HOTEND
+    #define PRINTER_PREHEAT_1_TEMP_HOTEND 205
+#endif
+
+#ifndef PRINTER_PREHEAT_1_TEMP_BED
+    #define PRINTER_PREHEAT_1_TEMP_BED 60
+#endif
+
+#ifndef PRINTER_PREHEAT_1_FAN_SPEED
+    #define PRINTER_PREHEAT_1_FAN_SPEED 0
+#endif
+
+#ifndef PRINTER_PREHEAT_2_LABEL 
+    #define PRINTER_PREHEAT_2_LABEL "ABS"
+#endif
+
+#ifndef PRINTER_PREHEAT_2_TEMP_HOTEND
+    #define PRINTER_PREHEAT_2_TEMP_HOTEND 240
+#endif
+
+#ifndef PRINTER_PREHEAT_2_TEMP_BED
+    #define PRINTER_PREHEAT_2_TEMP_BED 110
+#endif
+
+#ifndef PRINTER_PREHEAT_2_FAN_SPEED
+    #define PRINTER_PREHEAT_2_FAN_SPEED 0
+#endif
+
+/***********************************************************************/
 #ifdef PRINTER_MOTION
     #include LOAD_CONFIG(../motions/PRINTER_MOTION)
 #endif
@@ -130,6 +206,14 @@
 
 #ifdef PRINTER_BED
     #include LOAD_CONFIG(../beds/PRINTER_BED)
+#endif
+
+#if __has_include(STRINGIFY(../probes/PRINTER_PROBE.h))
+    #include LOAD_CONFIG(../probes/PRINTER_PROBE)
+#endif
+
+#if __has_include(STRINGIFY(../leveling/PRINTER_LEVELING.h))
+    #include LOAD_CONFIG(../leveling/PRINTER_LEVELING)
 #endif
 
 #if __has_include(STRINGIFY(../psu/PRINTER_PSU.h))

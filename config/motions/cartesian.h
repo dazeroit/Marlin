@@ -1,8 +1,7 @@
 #pragma once
-#include "../motions.h"
-
+/***********************************************************************/
 #define cartesian MOTION_CARTESIAN
-
+/***********************************************************************/
 #ifndef AXIS_X_ENDSTOP_MIN
     #define AXIS_X_ENDSTOP_MIN true
 #endif
@@ -402,5 +401,194 @@
 #ifndef AXIS_E7_MAX_ACCELERATION_EDIT_VALUE
     #define AXIS_E7_MAX_ACCELERATION_EDIT_VALUE AXIS_E0_MAX_ACCELERATION_EDIT_VALUE
 #endif
+//
+#ifndef AXIS_X_JERK
+    #define AXIS_X_JERK 10.0
+#endif
+
+#ifndef AXIS_Y_JERK
+    #define AXIS_Y_JERK 10.0
+#endif
+
+#ifndef AXIS_Z_JERK
+    #define AXIS_Z_JERK 0.3
+#endif
+
+#ifndef AXIS_E0_JERK
+    #define AXIS_E0_JERK 5.0
+#endif
+//
+#ifndef AXIS_X_JERK_EDIT_VALUE
+    #define AXIS_X_JERK_EDIT_VALUE 20.0
+#endif
+
+#ifndef AXIS_Y_JERK_EDIT_VALUE
+    #define AXIS_Y_JERK_EDIT_VALUE 20.0
+#endif
+
+#ifndef AXIS_Z_JERK_EDIT_VALUE
+    #define AXIS_Z_JERK_EDIT_VALUE 0.6
+#endif
+
+#ifndef AXIS_E0_JERK_EDIT_VALUE
+    #define AXIS_E0_JERK_EDIT_VALUE 10.0
+#endif
+//
+#ifndef AXIS_X_ENABLE_ON
+    #define AXIS_X_ENABLE_ON 0
+#endif
+
+#ifndef AXIS_Y_ENABLE_ON
+    #define AXIS_Y_ENABLE_ON 0
+#endif
+
+#ifndef AXIS_Z_ENABLE_ON
+    #define AXIS_Z_ENABLE_ON 0
+#endif
+
+#ifndef AXIS_E0_ENABLE_ON
+    #define AXIS_E0_ENABLE_ON 0
+#endif
+//
+#ifndef AXIS_X_DISABLE
+    #define AXIS_X_DISABLE false
+#endif
+#ifndef AXIS_Y_DISABLE
+    #define AXIS_Y_DISABLE false
+#endif
+#ifndef AXIS_Z_DISABLE
+    #define AXIS_Z_DISABLE false
+#endif
+#ifndef AXIS_E0_DISABLE
+    #define AXIS_E0_DISABLE false
+#endif
+//
+#ifndef AXIS_X_INVERT_DIR
+    #define AXIS_X_INVERT_DIR false
+#endif
+#ifndef AXIS_Y_INVERT_DIR
+    #define AXIS_Y_INVERT_DIR true
+#endif
+#ifndef AXIS_Z_INVERT_DIR
+    #define AXIS_Z_INVERT_DIR false
+#endif
+#ifndef AXIS_E0_INVERT_DIR
+    #define AXIS_E0_INVERT_DIR false
+#endif
+#ifndef AXIS_E1_INVERT_DIR
+    #define AXIS_E1_INVERT_DIR false
+#endif
+#ifndef AXIS_E2_INVERT_DIR
+    #define AXIS_E2_INVERT_DIR false
+#endif
+#ifndef AXIS_E3_INVERT_DIR
+    #define AXIS_E3_INVERT_DIR false
+#endif
+#ifndef AXIS_E4_INVERT_DIR
+    #define AXIS_E4_INVERT_DIR false
+#endif
+#ifndef AXIS_E5_INVERT_DIR
+    #define AXIS_E5_INVERT_DIR false
+#endif
+#ifndef AXIS_E6_INVERT_DIR
+    #define AXIS_E6_INVERT_DIR false
+#endif
+#ifndef AXIS_E7_INVERT_DIR
+    #define AXIS_E7_INVERT_DIR false
+#endif
+//
+#ifndef AXIS_Z_UNKNOWN_NO_RAISE
+    #define AXIS_Z_UNKNOWN_NO_RAISE false
+#endif
+//
+#ifndef AXIS_Z_HOMING_HEIGHT
+    #define AXIS_Z_HOMING_HEIGHT 0 //4
+#endif
+//
+#ifndef AXIS_Z_AFTER_HOMING
+    #define AXIS_Z_AFTER_HOMING 0 //10
+#endif
+//
+#ifndef AXIS_X_HOME_DIR
+    #define AXIS_X_HOME_DIR -1
+#endif
+
+#ifndef AXIS_Y_HOME_DIR
+    #define AXIS_Y_HOME_DIR -1
+#endif
+
+#ifndef AXIS_Z_HOME_DIR
+    #define AXIS_Z_HOME_DIR -1
+#endif
+//
+#ifndef AXIS_X_MIN_POS
+    #define AXIS_X_MIN_POS 0
+#endif
+#ifndef AXIS_Y_MIN_POS
+    #define AXIS_Y_MIN_POS 0
+#endif
+#ifndef AXIS_Z_MIN_POS
+    #define AXIS_Z_MIN_POS 0
+#endif
+#ifndef AXIS_X_MAX_POS
+    #define AXIS_X_MAX_POS BED_X_SIZE
+#endif
+#ifndef AXIS_Y_MAX_POS
+    #define AXIS_Y_MAX_POS BED_Y_SIZE
+#endif
+#ifndef AXIS_Z_MAX_POS
+    #define AXIS_Z_MAX_POS 200
+#endif
+//
+#ifndef AXIS_X_SOFTWARE_ENDSTOP_MIN
+    #define AXIS_X_SOFTWARE_ENDSTOP_MIN true
+#endif
+
+#ifndef AXIS_Y_SOFTWARE_ENDSTOP_MIN
+    #define AXIS_Y_SOFTWARE_ENDSTOP_MIN true
+#endif
+
+#ifndef AXIS_Z_SOFTWARE_ENDSTOP_MIN
+    #define AXIS_Z_SOFTWARE_ENDSTOP_MIN true
+#endif
+
+#ifndef AXIS_X_SOFTWARE_ENDSTOP_MAX
+    #define AXIS_X_SOFTWARE_ENDSTOP_MAX true
+#endif
+
+#ifndef AXIS_Y_SOFTWARE_ENDSTOP_MAX
+    #define AXIS_Y_SOFTWARE_ENDSTOP_MAX true
+#endif
+
+#ifndef AXIS_Z_SOFTWARE_ENDSTOP_MAX
+    #define AXIS_Z_SOFTWARE_ENDSTOP_MAX true
+#endif
+
+#ifndef AXIS_X_MANUAL_HOME_POS
+    #define AXIS_X_MANUAL_HOME_POS 0
+#endif
+
+#ifndef AXIS_Y_MANUAL_HOME_POS
+    #define AXIS_Y_MANUAL_HOME_POS 0
+#endif
+
+#ifndef AXIS_Z_MANUAL_HOME_POS
+    #define AXIS_Z_MANUAL_HOME_POS 0
+#endif
+
+#ifndef AXIS_Z_SAFE_HOMING
+    #define AXIS_Z_SAFE_HOMING false
+#endif
+
+#ifndef AXIS_Z_SAFE_HOMING_X_POINT
+    #define AXIS_Z_SAFE_HOMING_X_POINT X_CENTER
+#endif
+#ifndef AXIS_Z_SAFE_HOMING_Y_POINT
+    #define AXIS_Z_SAFE_HOMING_Y_POINT Y_CENTER
+#endif
 
 
+
+
+/***********************************************************************/
+#include "../motions.h"

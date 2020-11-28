@@ -1,0 +1,194 @@
+#pragma once
+
+#define LEVELING_NONE       -1
+#define LEVELING_3POINT     100
+#define LEVELING_LINEAR     200
+#define LEVELING_BILINEAR   300
+#define LEVELING_UBL        400
+#define LEVELING_MESH       500
+
+#ifndef LEVELING_RESTORE_AFTER_G28
+    #define LEVELING_RESTORE_AFTER_G28 false
+#endif
+
+#ifndef LEVELING_DEBUG
+    #define LEVELING_DEBUG false
+#endif
+
+#if ANY(LEVELING_MESH_ENABLED,LEVELING_BILINEAR_ENABLED,LEVELING_UBL_ENABLED)
+    #ifndef LEVELING_FADE_HEIGHT
+        #define LEVELING_FADE_HEIGHT true
+    #endif
+
+    #ifndef LEVELING_SEGMENT_LEVELED_MOVES
+        #define LEVELING_SEGMENT_LEVELED_MOVES true
+    #endif
+
+    #ifndef LEVELING_LEVELED_SEGMENT_LENGTH
+        #define LEVELING_LEVELED_SEGMENT_LENGTH 5.0
+    #endif
+
+    #ifndef LEVELING_G26_MESH_VALIDATION
+        #define LEVELING_G26_MESH_VALIDATION false
+    #endif
+
+    #ifndef LEVELING_MESH_TEST_NOZZLE_SIZE
+        #define LEVELING_MESH_TEST_NOZZLE_SIZE 0.4
+    #endif
+
+    #ifndef LEVELING_MESH_TEST_LAYER_HEIGHT
+        #define LEVELING_MESH_TEST_LAYER_HEIGHT 0.2
+    #endif
+
+    #ifndef LEVELING_MESH_TEST_HOTEND_TEMP
+        #define LEVELING_MESH_TEST_HOTEND_TEMP 205
+    #endif
+
+    #ifndef LEVELING_MESH_TEST_BED_TEMP
+        #define LEVELING_MESH_TEST_BED_TEMP 60
+    #endif
+
+    #ifndef LEVELING_G26_XY_FEEDRATE 
+        #define LEVELING_G26_XY_FEEDRATE 20
+    #endif
+
+    #ifndef LEVELING_G26_RETRACT_MULTIPLIER
+        #define LEVELING_G26_RETRACT_MULTIPLIER 1.0
+    #endif
+#endif
+
+#if EITHER(LEVELING_LINEAR_ENABLED, LEVELING_BILINEAR_ENABLED)
+
+    #ifndef LEVELING_GRID_MAX_POINTS_X
+        #define LEVELING_GRID_MAX_POINTS_X 3
+    #endif
+
+    #ifndef LEVELING_GRID_MAX_POINTS_Y
+        #define LEVELING_GRID_MAX_POINTS_Y LEVELING_GRID_MAX_POINTS_X
+    #endif
+   
+    #ifndef LEVELING_PROBE_Y_FIRST
+        #define LEVELING_PROBE_Y_FIRST false
+    #endif
+
+    #if ENABLED(LEVELING_BILINEAR_ENABLED)
+
+        #ifndef LEVELING_EXTRAPOLATE_BEYOND_GRID
+            #define LEVELING_EXTRAPOLATE_BEYOND_GRID false
+        #endif
+
+        #ifndef LEVELING_ABL_BILINEAR_SUBDIVISION
+            #define LEVELING_ABL_BILINEAR_SUBDIVISION false
+        #endif
+
+        #ifndef LEVELING_BILINEAR_SUBDIVISIONS
+            #define LEVELING_BILINEAR_SUBDIVISIONS 3
+        #endif
+
+    #endif
+
+#elif ENABLED(LEVELING_UBL_ENABLED)
+
+    #ifndef LEVELING_MESH_EDIT_GFX_OVERLAY 
+        #define LEVELING_MESH_EDIT_GFX_OVERLAY false
+    #endif
+
+    #ifndef LEVELING_MESH_INSET
+        #define LEVELING_MESH_INSET 1
+    #endif
+
+    #ifndef LEVELING_GRID_MAX_POINTS_X
+        #define LEVELING_GRID_MAX_POINTS_X 10
+    #endif
+
+    #ifndef LEVELING_GRID_MAX_POINTS_Y
+        #define LEVELING_GRID_MAX_POINTS_Y LEVELING_GRID_MAX_POINTS_X
+    #endif
+    
+    #ifndef LEVELING_UBL_MESH_EDIT_MOVES_Z
+        #define LEVELING_UBL_MESH_EDIT_MOVES_Z true
+    #endif
+
+    #ifndef LEVELING_UBL_SAVE_ACTIVE_ON_M500
+        #define LEVELING_UBL_SAVE_ACTIVE_ON_M500 true
+    #endif
+    
+    #ifndef LEVELING_UBL_Z_RAISE_WHEN_OFF_MESH
+        #define LEVELING_UBL_Z_RAISE_WHEN_OFF_MESH 0 //2.5
+    #endif
+
+#elif ENABLED(LEVELING_MESH_ENABLED)
+
+    #ifndef LEVELING_MESH_INSET
+        #define LEVELING_MESH_INSET 10
+    #endif
+    
+    #ifndef LEVELING_GRID_MAX_POINTS_X 
+        #define LEVELING_GRID_MAX_POINTS_X 10
+    #endif
+    
+    #ifndef LEVELING_GRID_MAX_POINTS_Y
+        #define LEVELING_GRID_MAX_POINTS_Y LEVELING_GRID_MAX_POINTS_X
+    #endif
+    
+    #ifndef LEVELING_MESH_G28_REST_ORIGIN
+        #define LEVELING_MESH_G28_REST_ORIGIN false
+    #endif
+
+#endif 
+
+#ifndef LEVELING_FROM_LCD
+    #define LEVELING_FROM_LCD false
+#endif
+
+#ifndef LEVELING_MESH_EDIT_Z_STEP
+    #define LEVELING_MESH_EDIT_Z_STEP 0.025
+#endif
+
+#ifndef LEVELING_LCD_PROBE_Z_RANGE
+    #define LEVELING_LCD_PROBE_Z_RANGE 4
+#endif
+
+#ifndef LEVELING_MESH_EDIT_MENU 
+    #define LEVELING_MESH_EDIT_MENU false
+#endif
+
+#ifndef LEVELING_BED_CORNERS
+    #define LEVELING_BED_CORNERS false
+#endif
+
+#ifndef LEVELING_CORNERS_INSET_LEFT
+    #define LEVELING_CORNERS_INSET_LEFT 30
+#endif
+
+#ifndef LEVELING_CORNERS_INSET_RIGHT
+    #define LEVELING_CORNERS_INSET_RIGHT 30
+#endif
+
+#ifndef LEVELING_CORNERS_INSET_FRONT
+    #define LEVELING_CORNERS_INSET_FRONT 30
+#endif
+
+#ifndef LEVELING_CORNERS_INSET_BACK
+    #define LEVELING_CORNERS_INSET_BACK 30
+#endif
+
+#ifndef LEVELING_CORNERS_INSET_LFRB
+    #define LEVELING_CORNERS_INSET_LFRB { LEVELING_CORNERS_INSET_LEFT, LEVELING_CORNERS_INSET_FRONT, LEVELING_CORNERS_INSET_RIGHT, LEVELING_CORNERS_INSET_BACK }
+#endif
+
+#ifndef LEVELING_CORNERS_HEIGHT
+    #define LEVELING_CORNERS_HEIGHT 0.0
+#endif
+
+#ifndef LEVELING_CORNERS_Z_HOP
+    #define LEVELING_CORNERS_Z_HOP 4.0
+#endif
+
+#ifndef LEVELING_CENTER_TOO 
+    #define LEVELING_CENTER_TOO false
+#endif
+
+#ifndef LEVELING_Z_PROBE_END_SCRIPT 
+    #define LEVELING_Z_PROBE_END_SCRIPT "G1 Z10 F15000\n"
+#endif

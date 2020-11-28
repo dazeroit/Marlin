@@ -59,6 +59,19 @@
 #ifndef BED_THERMAL_RUNAWAY
     #define BED_THERMAL_RUNAWAY true
 #endif
+//
+#ifndef BED_X_SIZE
+    #define BED_X_SIZE 200
+#endif
+
+#ifndef BED_Y_SIZE
+    #define BED_Y_SIZE 200
+#endif
+
+#ifndef BED_CENTER_AT_ORIGIN
+    #define BED_CENTER_AT_ORIGIN false
+#endif
+
 /***********************************************************************/
 #if __has_include(STRINGIFY(../thermistors/BED_SENSOR.h))
     #include LOAD_CONFIG(../thermistors/BED_SENSOR)

@@ -13,7 +13,33 @@
               |__|     |__| |_______/    |__|  |__| 
               F    I    R    M    W    A    R    E
 */
-/***********************************************************************/
+/* ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+ *                          ┌───────────┐
+ *                          │ ATTENTION │
+ *                          └───────────┘
+ *        TO CONFIGURE THE PRINTER, USE THE PRINTER.H FILE
+ *         IT IS NOT NECESSARY TO EDIT THIS FILE DIRECTLY
+ * ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+********************************************************************** */
+
+/* **********************************************************************
+   `.---------------------------------------------------------------------             
+  -syso+ooooooooooooooooooooooooooooooooooooooooooooooooooo++osmNNNNNNNNNNN`            
+ /d/`                                                          -yNMMMMMMMMM`            
+ m+     .:+++:` .:++/:`                          ydd`  /+.       -yNMMMMMMM`            
+`N:   .yNMmmNNdyNNmmNMm+                         dMM` .mms         :hNMMMMM`            
+`N:   hMN/.`.sMMN:.`.yMM/  `:+oo/-`     `:+oo/-  dMM` `oo/    -/oo+:.:hMMMM`            
+`N:   NMd    .MMh    -MMs`+mMNmmNNd:   /mMNmmMNy`dMM` .MMh  .hNMmmNMd:`:hMM`            
+`N:   NMd    .MMh    -MMs+MMy.``-dMN- .NMd.`.oMM+dMM` .MMh  yMM/``-NMm  `+M`            
+`N:   NMd    .MMh    -MMshMM-    /MMo -MMs   `--.dMM` .MMh  dMM`   dMM`  :M`            
+`N:   NMd    .MMh    -MMs/NMd/--./MMs-+MMs       sMM+-.MMh.-dMM`   dMM`  :M`            
+ N/   NNd    `NNh    -NNs :ymNNNo:NNNNNNNs       `ymNN:NNNNNNNN`   hNN`  :N`            
+ od-  ---     --.    `--.   `---.`-------.         .--`--------    ---  .ds             
+  /ys+////////////////////////////////////////////////////////////////+sh/              
+    .:////////////////////////////////////////////////////////////////:.   
+
+        THIS VERSION OF SWORDFISH IS POWERD BY MARLIN FIRMWARE
+ ********************************************************************* */
 #pragma once
 #include "Printer.h"
 /***********************************************************************/
@@ -87,26 +113,93 @@
     #endif
 #endif
 
-#if IS_PRINTER_MOTION(corexy)
+#if PRINTER_HAS(MOTION,corexy)
     #define COREXY
 #endif
-#if IS_PRINTER_MOTION(corexz)
+#if PRINTER_HAS(MOTION,corexz)
     #define COREXZ
 #endif
-#if IS_PRINTER_MOTION(coreyz)
+#if PRINTER_HAS(MOTION,coreyz)
     #define COREYZ
 #endif
-#if IS_PRINTER_MOTION(coreyx)
+#if PRINTER_HAS(MOTION,coreyx)
     #define COREYX
 #endif
-#if IS_PRINTER_MOTION(corezx)
+#if PRINTER_HAS(MOTION,corezx)
     #define COREZX
 #endif
-#if IS_PRINTER_MOTION(corezy)
+#if PRINTER_HAS(MOTION,corezy)
     #define COREZY
 #endif
-#if IS_PRINTER_MOTION(markforged_xy)
+#if PRINTER_HAS(MOTION,markforged_xy)
     #define MARKFORGED_XY
+#endif
+
+#define INVERT_X_DIR AXIS_X_INVERT_DIR
+#define INVERT_Y_DIR AXIS_Y_INVERT_DIR
+#define INVERT_Z_DIR AXIS_Z_INVERT_DIR
+
+#define X_BED_SIZE BED_X_SIZE
+#define Y_BED_SIZE BED_Y_SIZE
+
+#define X_MIN_POS AXIS_X_MIN_POS
+#define Y_MIN_POS AXIS_Y_MIN_POS
+#define Z_MIN_POS AXIS_Z_MIN_POS
+#define X_MAX_POS AXIS_X_MAX_POS
+#define Y_MAX_POS AXIS_Y_MAX_POS
+#define Z_MAX_POS AXIS_Z_MAX_POS
+
+#if ENABLED(MOTION_SOFTWARE_ENDSTOPS_MIN)
+    #define MIN_SOFTWARE_ENDSTOPS
+    #if ENABLED(AXIS_X_SOFTWARE_ENDSTOP_MIN)
+        #define MIN_SOFTWARE_ENDSTOP_X
+    #endif
+    #if ENABLED(AXIS_Y_SOFTWARE_ENDSTOP_MIN)
+        #define MIN_SOFTWARE_ENDSTOP_Y
+    #endif
+    #if ENABLED(AXIS_Z_SOFTWARE_ENDSTOP_MIN)
+        #define MIN_SOFTWARE_ENDSTOP_Z
+    #endif
+#endif
+
+#if ENABLED(MOTION_SOFTWARE_ENDSTOPS_MAX)
+    #define MAX_SOFTWARE_ENDSTOPS
+    #if ENABLED(AXIS_X_SOFTWARE_ENDSTOP_MAX)
+        #define MAX_SOFTWARE_ENDSTOP_X
+    #endif
+    #if ENABLED(AXIS_Y_SOFTWARE_ENDSTOP_MAX)
+        #define MAX_SOFTWARE_ENDSTOP_Y
+    #endif
+    #if ENABLED(AXIS_Z_SOFTWARE_ENDSTOP_MAX)
+        #define MAX_SOFTWARE_ENDSTOP_Z
+    #endif
+#endif
+
+#if EITHER(MOTION_SOFTWARE_ENDSTOPS_MIN, MOTION_SOFTWARE_ENDSTOPS_MAX)
+    #if ENABLED(MOTION_SOFTWARE_ENDSTOPS_MENU_ITEM)
+        #define SOFT_ENDSTOPS_MENU_ITEM
+    #endif
+#endif
+
+
+#if ENABLED(PRINTER_FILAMENT_RUNOUT)
+    #define FILAMENT_RUNOUT_SENSOR
+    #define FIL_RUNOUT_ENABLED_DEFAULT PRINTER_FILAMENT_RUNOUT_ENABLED_DEFAULT
+    #define NUM_RUNOUT_SENSORS PRINTER_FILAMENT_RUNOUT_NUMBERS
+    #define FIL_RUNOUT_STATE PRINTER_FILAMENT_RUNOUT_STATE
+    #if ENABLED(PRINTER_FILAMENT_RUNOUT_PULLUP)
+        #define FIL_RUNOUT_PULLUP 
+    #endif
+    #if ENABLED(PRINTER_FILAMENT_RUNOUT_PULLDOWN)
+        #define FIL_RUNOUT_PULLDOWN 
+    #endif
+    #define FILAMENT_RUNOUT_SCRIPT PRINTER_FILAMENT_RUNOUT_SCRIPT
+    #if PRINTER_FILAMENT_RUNOUT_DISTANCE_MM > 0
+        #define FILAMENT_RUNOUT_DISTANCE_MM PRINTER_FILAMENT_RUNOUT_DISTANCE_MM
+        #if ENABLED(PRINTER_FILAMENT_RUNOUT_MOTION_SENSOR)
+            #define FILAMENT_MOTION_SENSOR
+        #endif
+    #endif
 #endif
 
 /***********************************************************************/
@@ -252,6 +345,17 @@
     #define THERMAL_PROTECTION_CHAMBER
 #endif
 
+#define DISABLE_E AXIS_E0_DISABLE
+#define DISABLE_INACTIVE_EXTRUDER EXTRUDER_DISABLE_INACTIVE
+
+#define INVERT_E0_DIR AXIS_E0_INVERT_DIR
+#define INVERT_E1_DIR AXIS_E1_INVERT_DIR
+#define INVERT_E2_DIR AXIS_E2_INVERT_DIR
+#define INVERT_E3_DIR AXIS_E3_INVERT_DIR
+#define INVERT_E4_DIR AXIS_E4_INVERT_DIR
+#define INVERT_E5_DIR AXIS_E5_INVERT_DIR
+#define INVERT_E6_DIR AXIS_E6_INVERT_DIR
+#define INVERT_E7_DIR AXIS_E7_INVERT_DIR
 /***********************************************************************/
 // ┌──────────────────────┐
 // │ @section temperature │
@@ -359,6 +463,16 @@
     #endif
     #define PID_FUNCTIONAL_RANGE PRINTER_PID_FUNCTIONAL_RANGE
 #endif
+
+#define PREHEAT_1_LABEL PRINTER_PREHEAT_1_LABEL   
+#define PREHEAT_1_TEMP_HOTEND PRINTER_PREHEAT_1_TEMP_HOTEND
+#define PREHEAT_1_TEMP_BED PRINTER_PREHEAT_1_TEMP_BED
+#define PREHEAT_1_FAN_SPEED PRINTER_PREHEAT_1_FAN_SPEED
+
+#define PREHEAT_2_LABEL PRINTER_PREHEAT_2_LABEL  
+#define PREHEAT_2_TEMP_HOTEND PRINTER_PREHEAT_2_TEMP_HOTEND
+#define PREHEAT_2_TEMP_BED PRINTER_PREHEAT_2_TEMP_BED  
+#define PREHEAT_2_FAN_SPEED PRINTER_PREHEAT_2_FAN_SPEED   
 
 /***********************************************************************/
 // ┌─────────────────┐
@@ -484,6 +598,55 @@
     #define DETECT_BROKEN_ENDSTOP
 #endif
 
+#if ENABLED(MOTION_DISABLE_BEFORE_HOMING)
+    #define NO_MOTION_BEFORE_HOMING
+#endif
+
+#if ENABLED(AXIS_Z_UNKNOWN_NO_RAISE)
+    #define UNKNOWN_Z_NO_RAISE
+#endif
+
+#if AXIS_Z_HOMING_HEIGHT > 0
+    #define Z_HOMING_HEIGHT AXIS_Z_HOMING_HEIGHT
+#endif
+
+#if AXIS_Z_AFTER_HOMING > 0
+    #define Z_AFTER_HOMING AXIS_Z_AFTER_HOMING
+#endif
+
+#define X_HOME_DIR AXIS_X_HOME_DIR
+#define Y_HOME_DIR AXIS_Y_HOME_DIR
+#define Z_HOME_DIR AXIS_Z_HOME_DIR
+
+#if ENABLED(BED_CENTER_AT_ORIGIN)
+    #define BED_CENTER_AT_0_0
+#endif
+
+#if AXIS_X_MANUAL_HOME_POS != 0
+    #define MANUAL_X_HOME_POS AXIS_X_MANUAL_HOME_POS
+#endif
+
+#if AXIS_Y_MANUAL_HOME_POS != 0
+    #define MANUAL_Y_HOME_POS AXIS_Y_MANUAL_HOME_POS
+#endif
+
+#if AXIS_Z_MANUAL_HOME_POS != 0
+    #define MANUAL_Z_HOME_POS AXIS_Z_MANUAL_HOME_POS
+#endif
+
+#if ENABLED(AXIS_Z_SAFE_HOMING)
+    #define Z_SAFE_HOMING
+    #define Z_SAFE_HOMING_X_POINT AXIS_Z_SAFE_HOMING_X_POINT 
+    #define Z_SAFE_HOMING_Y_POINT AXIS_Z_SAFE_HOMING_Y_POINT
+#endif
+
+#define HOMING_FEEDRATE_XY MOTION_HOMING_FEEDRATE_XY
+#define HOMING_FEEDRATE_Z  MOTION_HOMING_FEEDRATE_Z
+
+#if ENABLED(MOTION_VALIDATE_HOMING_ENDSTOPS)
+    #define VALIDATE_HOMING_ENDSTOPS
+#endif
+
 /***********************************************************************/
 // ┌─────────────────┐
 // │ @section motion │
@@ -522,9 +685,276 @@
 #define DEFAULT_RETRACT_ACCELERATION MOTION_DEFAULT_RETRACT_ACCELERATION
 #define DEFAULT_TRAVEL_ACCELERATION MOTION_DEFAULT_TRAVEL_ACCELERATION
 
+#if ENABLED(MOTION_CLASSIC_JERK)
+    #define CLASSIC_JERK
+    #define DEAFULT_XJERK AXIS_X_JERK
+    #define DEFAULT_YJERK AXIS_Y_JERK
+    #define DEFAULT_ZJERK AXIS_Z_JERK
+
+    #define TRAVEL_EXTRA_XYJERK MOTION_TRAVEL_EXTRA_XYJERK
+
+    #if ENABLED(MOTION_LIMITED_JERK_EDITING)
+        #define MAX_JERK_EDIT_VALUES { AXIS_X_JERK_EDIT_VALUE , AXIS_Y_JERK_EDIT_VALUE, AXIS_Z_JERK_EDIT_VALUE, AXIS_E0_JERK_EDIT_VALUE }
+    #endif
+#endif
+
+#define DEFAULT_EJERK AXIS_E0_JERK
+
+#if DISABLED(MOTION_CLASSIC_JERK)
+    #define JUNCTION_DEVIATION_MM MOTION_JUNCTION_DEVIATION
+    #if ENABLED(MOTION_JD_HANDLE_SMALL_SEGMENTS)
+        #define JD_HANDLE_SMALL_SEGMENTS
+    #endif
+#endif
+
+#if ENABLED(MOTION_S_CURVE_ACCELERATION)
+    #define S_CURVE_ACCELERATION
+#endif
+
+#define X_ENABLE_ON AXIS_X_ENABLE_ON
+#define Y_ENABLE_ON AXIS_Y_ENABLE_ON
+#define Z_ENABLE_ON AXIS_Z_ENABLE_ON
+#define E_ENABLE_ON AXIS_E0_ENABLE_ON
+
+#define DISABLE_X AXIS_X_DISABLE
+#define DISABLE_Y AXIS_Y_DISABLE
+#define DISABLE_Z AXIS_Z_DISABLE
+
+/***********************************************************************/
+// ┌─────────────────┐
+// │ @section probes │
+// ├─────────────────┤
+// │                 │
+// └─────────────────┘
+
+#if ENABLED(PROBE_USES_Z_ENDSTOP_MIN_PIN)
+    #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#endif
+
+#if ENABLED(PROBE_USES_FOR_Z_HOMING)
+    #define USE_PROBE_FOR_Z_HOMING
+#endif
+
+#if PROBE_PIN > 0
+    #define Z_MIN_PROBE_PIN PROBE_PIN
+#endif
+
+#define NOZZLE_TO_PROBE_OFFSET { PROBE_X_OFFSET, PROBE_Y_OFFSET, PROBE_Z_OFFSET }
+#define PROBING_MARGIN PROBE_MARGIN
+
+#define XY_PROBE_SPEED PROBE_SPEED
+#define Z_PROBE_SPEED_FAST PROBE_Z_SPEED_FAST
+#define Z_PROBE_SPEED_SLOW PROBE_Z_SPEED_SLOW
+
+#if PROBE_MULTIPLE_PROBING > 0
+    #define MULTIPLE_PROBING PROBE_MULTIPLE_PROBING
+#endif
+
+#if PROBE_EXTRA_PROBING > 0
+    #define EXTRA_PROBING PROBE_EXTRA_PROBING
+#endif
+
+#define Z_CLEARANCE_DEPLOY_PROBE PROBE_Z_CLEARANCE_DEPLOY
+#define Z_CLEARANCE_BETWEEN_PROBES PROBE_Z_CLEARANCE_BETWEEN_PROBES
+#define Z_CLEARANCE_MULTI_PROBE PROBE_Z_CLEARANCE_MULTI_PROBE
+
+#if PROBE_Z_AFTER_PROBING > 0
+    #define Z_AFTER_PROBING PROBE_Z_AFTER_PROBING
+#endif
+
+#define Z_PROBE_LOW_POINT PROBE_Z_LOW_POINT
+
+#define Z_PROBE_OFFSET_RANGE_MIN PROBE_Z_OFFSET_RANGE_MIN
+#define Z_PROBE_OFFSET_RANGE_MAX PROBE_Z_OFFSET_RANGE_MAX
+
+#if ENABLED(PROBE_REPEATABILITY_TEST)
+    #define Z_MIN_PROBE_REPEATABILITY_TEST
+#endif
+
+#if ENABLED(PROBE_PAUSE_BEFORE_DEPLOY_STOW)
+    #define PAUSE_BEFORE_DEPLOY_STOW
+    #if ENABLED(PROBE_PAUSE_DEPLOY_WHEN_TRIGGERED)
+        #define PAUSE_PROBE_DEPLOY_WHEN_TRIGGERED
+    #endif
+#endif
+
+#if ENABLED(PROBE_HEATERS_OFF)
+    #define PROBING_HEATERS_OFF 
+    #if ENABLED(PROBE_WAIT_FOR_BED_HEATER)
+        #define WAIT_FOR_BED_HEATER 
+    #endif
+#endif
+
+#if ENABLED(PROBE_FANS_OFF)
+    #define PROBING_FANS_OFF  
+#endif
+
+#if ENABLED(PROBE_STEPPERS_OFF)
+    #define PROBING_STEPPERS_OFF  
+#endif
+
+#if PROBE_DELAY_BEFORE_PROBING > 0
+    #define DELAY_BEFORE_PROBING PROBE_DELAY_BEFORE_PROBING
+#endif
+
+/***********************************************************************/
+// ┌────────────────────┐
+// │ @section calibrate │
+// ├────────────────────┤
+// │                    │
+// └────────────────────┘
+
+#if PRINTER_HAS(LEVELING,point3)
+    #define AUTO_BED_LEVELING_3POINT
+#endif
+
+#if PRINTER_HAS(LEVELING,linear)
+    #define AUTO_BED_LEVELING_LINEAR
+#endif
+
+#if PRINTER_HAS(LEVELING,bilinear)
+    #define AUTO_BED_LEVELING_BILINEAR
+#endif
+
+#if PRINTER_HAS(LEVELING,ubl)
+    #define AUTO_BED_LEVELING_UBL
+#endif
+
+#if PRINTER_HAS(LEVELING,mesh)
+    #define MESH_BED_LEVELING
+#endif
+
+#if ENABLED(LEVELING_RESTORE_AFTER_G28)
+    #define RESTORE_LEVELING_AFTER_G28
+#endif
+
+#if ENABLED(LEVELING_DEBUG)
+    #define DEBUG_LEVELING_FEATURE
+#endif
+
+#if ANY(LEVELING_MESH_ENABLED,LEVELING_BILINEAR_ENABLED,LEVELING_UBL_ENABLED)
+
+    #if ENABLED(LEVELING_FADE_HEIGHT)
+        #define ENABLE_LEVELING_FADE_HEIGHT
+    #endif
+
+    #if ENABLED(LEVELING_SEGMENT_LEVELED_MOVES)
+        #define SEGMENT_LEVELED_MOVES
+    #endif
+    #define LEVELED_SEGMENT_LENGTH LEVELING_LEVELED_SEGMENT_LENGTH
+
+    #if ENABLED(LEVELING_G26_MESH_VALIDATION)
+        #define G26_MESH_VALIDATION
+        #define MESH_TEST_NOZZLE_SIZE LEVELING_MESH_TEST_NOZZLE_SIZE    
+        #define MESH_TEST_LAYER_HEIGHT LEVELING_MESH_TEST_LAYER_HEIGHT
+        #define MESH_TEST_HOTEND_TEMP LEVELING_MESH_TEST_HOTEND_TEMP
+        #define MESH_TEST_BED_TEMP LEVELING_MESH_TEST_BED_TEMP    
+        #define G26_XY_FEEDRATE LEVELING_G26_XY_FEEDRATE       
+        #define G26_RETRACT_MULTIPLIER LEVELING_G26_RETRACT_MULTIPLIER
+    #endif
+
+#endif
+
+#if EITHER(LEVELING_LINEAR_ENABLED, LEVELING_BILINEAR_ENABLED)
+
+    #define GRID_MAX_POINTS_X LEVELING_GRID_MAX_POINTS_X
+    #define GRID_MAX_POINTS_Y LEVELING_GRID_MAX_POINTS_Y
+
+    #if ENABLED(LEVELING_PROBE_Y_FIRST)
+        #define PROBE_Y_FIRST
+    #endif
+  
+    #if ENABLED(LEVELING_BILINEAR_ENABLED)
+
+        #if ENABLED(LEVELING_EXTRAPOLATE_BEYOND_GRID)
+            #define EXTRAPOLATE_BEYOND_GRID
+        #endif
+
+        #if ENABLED(LEVELING_ABL_BILINEAR_SUBDIVISION)
+            #define ABL_BILINEAR_SUBDIVISION
+            #define BILINEAR_SUBDIVISIONS LEVELING_BILINEAR_SUBDIVISIONS
+        #endif
+    #endif
+
+#elif ENABLED(LEVELING_UBL_ENABLED)
+    #if ENABLED(LEVELING_MESH_EDIT_GFX_OVERLAY )
+        #define MESH_EDIT_GFX_OVERLAY  
+    #endif
+
+    #define MESH_INSET LEVELING_MESH_INSET             
+    #define GRID_MAX_POINTS_X LEVELING_GRID_MAX_POINTS_X    
+    #define GRID_MAX_POINTS_Y LEVELING_GRID_MAX_POINTS_Y
+
+    #if ENABLED(LEVELING_UBL_MESH_EDIT_MOVES_Z)
+        #define UBL_MESH_EDIT_MOVES_Z 
+    #endif
+
+    #if ENABLED(LEVELING_UBL_SAVE_ACTIVE_ON_M500)
+        #define UBL_SAVE_ACTIVE_ON_M500
+    #endif
+       
+    #if LEVELING_UBL_Z_RAISE_WHEN_OFF_MESH > 0
+        #define UBL_Z_RAISE_WHEN_OFF_MESH LEVELING_UBL_Z_RAISE_WHEN_OFF_MESH
+    #endif
+
+#elif ENABLED(LEVELING_MESH_ENABLED)
+
+    #define MESH_INSET LEVELING_MESH_INSET         
+    #define GRID_MAX_POINTS_X LEVELING_GRID_MAX_POINTS_X     
+    #define GRID_MAX_POINTS_Y LEVELING_GRID_MAX_POINTS_Y
+
+    #if ENABLED(LEVELING_MESH_G28_REST_ORIGIN)
+        #define MESH_G28_REST_ORIGIN 
+    #endif
+
+#endif 
+
+#if ENABLED(LEVELING_FROM_LCD)
+
+    #define LCD_BED_LEVELING
+    #define MESH_EDIT_Z_STEP LEVELING_MESH_EDIT_Z_STEP
+    #define LCD_PROBE_Z_RANGE LEVELING_LCD_PROBE_Z_RANGE
+
+    #if ENABLED(LEVELING_MESH_EDIT_MENU)
+        #define MESH_EDIT_MENU 
+    #endif    
+
+#endif
+
+#if ENABLED(LEVELING_BED_CORNERS)
+    
+    #define LEVEL_BED_CORNERS
+    #define LEVEL_CORNERS_INSET_LFRB LEVELING_CORNERS_INSET_LFRB
+    #define LEVEL_CORNERS_HEIGHT LEVELING_CORNERS_HEIGHT
+    #define LEVEL_CORNERS_Z_HOP LEVELING_CORNERS_Z_HOP
+
+    #if ENABLED(LEVELING_CENTER_TOO)
+        #define LEVEL_CENTER_TOO 
+    #endif
+      
+#endif
+
+#ifdef LEVELING_Z_PROBE_END_SCRIPT
+    #define Z_PROBE_END_SCRIPT LEVELING_Z_PROBE_END_SCRIPT
+#endif
+
+//TODO BED SKEW
 
 
 
+/***********************************************************************/
+// ┌──────────────┐
+// │ @section lcd │
+// ├──────────────┤
+// │              │
+// └──────────────┘
 
 
+
+/***********************************************************************/
+// ┌─────────────────┐
+// │ @section extras │
+// ├─────────────────┤
+// │                 │
+// └─────────────────┘
 
