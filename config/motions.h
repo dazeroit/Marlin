@@ -18,6 +18,11 @@
 #define MOTION_CLOCKWISE        true
 #define MOTION_COUNTERCLOCKWISE false
 
+#define FORWARD                 true
+#define BACKWARD                false
+#define CLOCKWISE               true
+#define COUNTERCLOCKWISE        false
+
 #ifndef MOTION_DISTINCT_E_FACTORS
     #define MOTION_DISTINCT_E_FACTORS false
 #endif

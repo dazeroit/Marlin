@@ -72,6 +72,49 @@
     #define BED_CENTER_AT_ORIGIN false
 #endif
 
+#ifndef BED_SKEW_CORRECTION
+    #define BED_SKEW_CORRECTION false
+#endif
+
+#ifndef BED_SKEW_CORRECTION_FOR_Z
+    #define BED_SKEW_CORRECTION_FOR_Z false
+#endif
+
+#ifndef BED_SKEW_XY_DIAG_AC
+    #define BED_SKEW_XY_DIAG_AC 282.8427124746
+#endif
+
+#ifndef BED_SKEW_XY_DIAG_BD
+    #define BED_SKEW_XY_DIAG_BD 282.8427124746
+#endif
+
+#ifndef BED_SKEW_XY_SIDE_AD
+    #define BED_SKEW_XY_SIDE_AD 200
+#endif
+
+#ifndef BED_SKEW_XZ_DIAG_BD
+    #define BED_SKEW_XZ_DIAG_BD 282.8427124746
+#endif
+#ifndef BED_SKEW_YZ_DIAG_AC
+    #define BED_SKEW_YZ_DIAG_AC 282.8427124746
+#endif
+#ifndef BED_SKEW_YZ_DIAG_BD
+    #define BED_SKEW_YZ_DIAG_BD 282.8427124746
+#endif
+#ifndef BED_SKEW_YZ_SIDE_AD
+    #define BED_SKEW_YZ_SIDE_AD 200
+#endif
+#ifndef BED_SKEW_XZ_SKEW_FACTOR
+    #define BED_SKEW_XZ_SKEW_FACTOR 0.0
+#endif
+#ifndef BED_SKEW_YZ_SKEW_FACTOR
+    #define BED_SKEW_YZ_SKEW_FACTOR 0.0
+#endif
+
+#ifndef BED_SKEW_CORRECTION_GCODE
+    #define BED_SKEW_CORRECTION_GCODE false
+#endif
+
 /***********************************************************************/
 #if __has_include(STRINGIFY(../thermistors/BED_SENSOR.h))
     #include LOAD_CONFIG(../thermistors/BED_SENSOR)

@@ -187,6 +187,120 @@
     #define PRINTER_PREHEAT_2_FAN_SPEED 0
 #endif
 
+#ifndef PRINTER_EEPROM 
+    #define PRINTER_EEPROM false
+#endif
+
+#ifndef PRINTER_EEPROM_DISABLE_M503
+    #define PRINTER_EEPROM_DISABLE_M503 false
+#endif
+
+#ifndef PRINTER_EEPROM_CHITCHAT
+    #define PRINTER_EEPROM_CHITCHAT true
+#endif
+
+#ifndef PRINTER_EEPROM_BOOT_SILENT
+    #define PRINTER_EEPROM_BOOT_SILENT true
+#endif
+
+#ifndef PRINTER_EEPROM_AUTO_INIT
+    #define PRINTER_EEPROM_AUTO_INIT false
+#endif
+
+#ifndef PRINTER_HOST_KEEPALIVE_FEATURE
+    #define PRINTER_HOST_KEEPALIVE_FEATURE true
+#endif
+
+#ifndef PRINTER_DEFAULT_KEEPALIVE_INTERVAL 
+    #define PRINTER_DEFAULT_KEEPALIVE_INTERVAL 2
+#endif
+
+#ifndef PRINTER_BUSY_WHILE_HEATING
+    #define PRINTER_BUSY_WHILE_HEATING true
+#endif
+
+#ifndef PRINTER_INCH_MODE_SUPPORT
+    #define PRINTER_INCH_MODE_SUPPORT false
+#endif
+
+#ifndef PRINTER_TEMPERATURE_UNITS_SUPPORT
+    #define PRINTER_TEMPERATURE_UNITS_SUPPORT false
+#endif
+
+#ifndef PRINTER_JOB_TIMER_AUTOSTART
+    #define PRINTER_JOB_TIMER_AUTOSTART true
+#endif
+
+#ifndef PRINTER_COUNTER
+    #define PRINTER_COUNTER false
+#endif
+
+#ifndef PRINTER_LCD_LANGUAGE
+    #define PRINTER_LCD_LANGUAGE en
+#endif
+
+#ifndef PRINTER_DISPLAY_CHARSET_HD44780 
+    #define PRINTER_DISPLAY_CHARSET_HD44780 WESTERN
+#endif
+
+#ifndef PRINTER_LCD_INFO_SCREEN_STYLE
+    #define PRINTER_LCD_INFO_SCREEN_STYLE 0
+#endif
+
+#ifndef PRINTER_SD
+    #define PRINTER_SD false
+#endif
+
+#ifndef PRINTER_SPI_SPEED
+    #define PRINTER_SPI_SPEED SPI_FULL_SPEED 
+#endif
+
+#ifndef PRINTER_SD_CHECK_AND_RETRY
+    #define PRINTER_SD_CHECK_AND_RETRY false
+#endif
+
+#ifndef PRINTER_NO_LCD_MENUS
+    #define PRINTER_NO_LCD_MENUS false
+#endif
+
+#ifndef PRINTER_SLIM_LCD_MENUS
+    #define PRINTER_SLIM_LCD_MENUS false
+#endif
+
+
+#ifndef PRINTER_ENCODER_PULSES_PER_STEP
+    #define PRINTER_ENCODER_PULSES_PER_STEP 0 //4
+#endif
+
+#ifndef PRINTER_ENCODER_STEPS_PER_MENU_ITEM
+    #define PRINTER_ENCODER_STEPS_PER_MENU_ITEM 0//1
+#endif
+#ifndef PRINTER_REVERSE_ENCODER_DIRECTION
+    #define PRINTER_REVERSE_ENCODER_DIRECTION false
+#endif
+#ifndef PRINTER_REVERSE_MENU_DIRECTION false
+    #define PRINTER_REVERSE_MENU_DIRECTION false
+#endif
+#ifndef PRINTER_REVERSE_SELECT_DIRECTION
+    #define PRINTER_REVERSE_SELECT_DIRECTION false
+#endif
+#ifndef PRINTER_INDIVIDUAL_AXIS_HOMING_MENU
+    #define PRINTER_INDIVIDUAL_AXIS_HOMING_MENU false
+#endif
+#ifndef PRINTER_SPEAKER
+    #define PRINTER_SPEAKER false
+#endif
+#ifndef PRINTER_LCD_FEEDBACK_FREQUENCY_DURATION_MS
+    #define PRINTER_LCD_FEEDBACK_FREQUENCY_DURATION_MS 0//2
+#endif
+#ifndef PRINTER_LCD_FEEDBACK_FREQUENCY_HZ
+    #define PRINTER_LCD_FEEDBACK_FREQUENCY_HZ 0//5000
+#endif
+
+#ifndef PRINTER_DISPLAY
+    #define PRINTER_DISPLAY 
+#endif
+
 /***********************************************************************/
 #ifdef PRINTER_MOTION
     #include LOAD_CONFIG(../motions/PRINTER_MOTION)
@@ -219,4 +333,63 @@
 #if __has_include(STRINGIFY(../psu/PRINTER_PSU.h))
     #include LOAD_CONFIG(../psu/PRINTER_PSU)
 #endif
+
+#ifdef PRINTER_FEATURE_1
+    #if __has_include(STRINGIFY(../features/PRINTER_FEATURE_1.h))
+        #include LOAD_CONFIG(../features/PRINTER_FEATURE_1)
+    #else
+        #error "PRINTER_FEATURE_1 does not exists !"
+    #endif
+#endif
+
+#ifdef PRINTER_FEATURE_2
+    #if __has_include(STRINGIFY(../features/PRINTER_FEATURE_2.h))
+        #include LOAD_CONFIG(../features/PRINTER_FEATURE_2)
+    #else
+        #error "PRINTER_FEATURE_2 does not exists !"
+    #endif
+#endif
+
+#ifdef PRINTER_FEATURE_3
+    #if __has_include(STRINGIFY(../features/PRINTER_FEATURE_3.h))
+        #include LOAD_CONFIG(../features/PRINTER_FEATURE_3)
+    #else
+        #error "PRINTER_FEATURE_3 does not exists !"
+    #endif
+#endif
+
+#ifdef PRINTER_FEATURE_4
+    #if __has_include(STRINGIFY(../features/PRINTER_FEATURE_4.h))
+        #include LOAD_CONFIG(../features/PRINTER_FEATURE_4)
+    #else
+        #error "PRINTER_FEATURE_4 does not exists !"
+    #endif
+#endif
+
+#ifdef PRINTER_FEATURE_5
+    #if __has_include(STRINGIFY(../features/PRINTER_FEATURE_5.h))
+        #include LOAD_CONFIG(../features/PRINTER_FEATURE_5)
+    #else
+        #error "PRINTER_FEATURE_5 does not exists !"
+    #endif
+#endif
+
+#ifdef PRINTER_FEATURE_6
+    #if __has_include(STRINGIFY(../features/PRINTER_FEATURE_6.h))
+        #include LOAD_CONFIG(../features/PRINTER_FEATURE_6)
+    #else
+        #error "PRINTER_FEATURE_6 does not exists !"
+    #endif
+#endif
+
+
+
+
+
+
+
+
+
+
+
 /***********************************************************************/
